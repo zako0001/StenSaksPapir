@@ -9,20 +9,26 @@ public class Menneskespiller extends Spiller {
     public Menneskespiller(String navn) {
         super(navn);
         scanner = new Scanner(System.in);
-        scanner.useDelimiter("\n");
     }
 
     // Spiller method
     @Override
     public Håndtegn vælgHåndtegn() {
 
-        System.out.print("Skriv 'sten', 'saks' eller 'papir': ");
+        System.out.print(STR."\{getNavn()}, skriv 'sten', 'saks' eller 'papir': ");
 
         try {
-            return Håndtegn.valueOf(scanner.next().toUpperCase());
-        } catch (IllegalArgumentException e) {
-            System.out.print("\u001B[91mForkert skrevet.\u001B[0m ");
-            return vælgHåndtegn();
+
+            return Håndtegn.valueOf(scanner.nextLine()
+                .toUpperCase()
+                .replaceAll("[^AEIKNPRST]", "")     // Fjerner irrelevante tegn.
+            );
+
+        } catch (IllegalArgumentException iae) {
+
+            System.out.println("\u001B[91mForkert skrevet.\u001B[0m");
+
+            return vælgHåndtegn();                  // Rekursion: Metoden returnerer sig selv og starter derfor forfra.
         }
     }
 }

@@ -15,6 +15,6 @@ public class Computerspiller extends Spiller {
     @Override
     public Håndtegn vælgHåndtegn() {
 
-        return Håndtegn.values()[random.nextInt(Håndtegn.values().length)];
+        return Håndtegn.values()[random.nextInt(3)];
     }
 }
